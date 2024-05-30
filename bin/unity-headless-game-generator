@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+require 'shellwords'
+require 'optparse'
+
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: unity-headless-game-generator.rb [options]"
+
+  opts.on("-q", "--quiet", "Run quietly") do
+    options[:quiet] = true
+  end
+
+  opts.on("-i", "--image[=game-generator:rc0]", "Docker image for game generation") do |image|
+    options[:image] = image
+  end
+
+  opts.on("-s", "--script[=SCRIPT]", "(Not available) Script to load") do |scene|
+    raise NotImplementedError.new("Not implemented yet")
+    options[:script] = script
+  end
+
+  opts.on("-o", "--output=OUTPUT", "(Required) Output Directory") do |output|
+    options[:output] = output
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end
+optparse.parse!
+
+options[:image] ||= "game-generator:rc0"
+
+unless options[:output]
+  raise OptionParser::MissingArgument.new("output")
+end
+
+options[:output] = File.expand_path(options[:output])
+
+def synthetize(options)
+  command = %w(docker run --rm)
+  command << "--attach" << "stderr" if options[:quiet]
+  command << "--volume" << "#{options[:output]}:/root/shared"
+  command << options[:image]
+  command.shelljoin
+end
+
+exec(synthetize(options))
