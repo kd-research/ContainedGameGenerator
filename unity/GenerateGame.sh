@@ -4,15 +4,15 @@ set -xe
 # path to unity
 unity_path="/opt/unity/Editor/Unity"
 
-if [ -z "$1" ]; then
+if [ -z "$2" ]; then
 	echo "Using default game specs file: SceneBuild.cs"
 	GAME_SPECS_FILE=/root/SceneBuild.cs
 else
 	echo "Using custom game specs file: $1"
-	GAME_SPECS_FILE=/root/shared/%1
+	GAME_SPECS_FILE=/root/shared/$1
 fi
 
-GAME_DIR=$(realpath ./WebGLGameProject)
+GAME_DIR=$1
 
 # create new unity project
 echo "Creating new empty Unity project"
@@ -37,6 +37,3 @@ echo "Scene generation completed..."
 echo "Starting WebGL build..."
 "$unity_path" -batchmode -nographics -quit -projectPath "" -logFile - -executeMethod SceneBuild.BuildWeb
 echo "WebGL build completed..."
-
-mv "$GAME_DIR"/Build/Build /root/shared/build
-chown -R 1000:1000 /root/shared/build 

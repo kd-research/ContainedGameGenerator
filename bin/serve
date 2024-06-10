@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "optparse"
+require "game_generator_service"
+
+Bundler.require
+
+grpc_options = { }
+
+OptionParser.new do |opts|
+  opts.on("-b", "--bind PATH", "Binding Path") do |v|
+    host, port = v.split(":", 2)
+    grpc_options[:host] = host
+    grpc_options[:port] = port if port
+  end
+
+  opts.on("-p", "--port PORT", "Port") do |v|
+    grpc_options[:port] = v
+  end
+end
+
+GameGeneratorService.run!(**grpc_options)

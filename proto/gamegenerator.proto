@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message GenerateGameRequest {}
+
+message GenerateGameResponse {
+  FileResponse loader = 1;
+  FileResponse data = 2;
+  FileResponse framework = 3;
+  FileResponse core = 4;
+}
+
+message FileResponse {
+  bytes data = 1;
+}
+
+service GameGenerator {
+  rpc GenerateGame(GenerateGameRequest) returns (GenerateGameResponse);
+}
