@@ -6,7 +6,7 @@ message GenerateGameResponse {
   FileResponse loader = 1;
   FileResponse data = 2;
   FileResponse framework = 3;
-  FileResponse core = 4;
+  FileResponse code = 4;
 }
 
 message FileResponse {

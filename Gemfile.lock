@@ -8,6 +8,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     google-protobuf (3.25.3)
     google-protobuf (3.25.3-aarch64-linux)
     google-protobuf (3.25.3-arm64-darwin)
@@ -34,6 +37,11 @@ GEM
     grpc (1.64.0-x86_64-linux)
       google-protobuf (~> 3.25)
       googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.64.0)
+    io-console (0.7.2)
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     minitest (5.23.1)
@@ -41,10 +49,16 @@ GEM
     parser (3.3.2.0)
       ast (~> 2.4.1)
       racc
+    psych (5.1.2)
+      stringio
     racc (1.8.0)
     rainbow (3.1.1)
     rake (13.2.1)
+    rdoc (6.7.0)
+      psych (>= 4.0.0)
     regexp_parser (2.9.2)
+    reline (0.5.8)
+      io-console (~> 0.5)
     rexml (3.2.9)
       strscan
     rubocop (1.64.1)
@@ -61,6 +75,7 @@ GEM
     rubocop-ast (1.31.3)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    stringio (3.1.0)
     strscan (3.1.0)
     unicode-display_width (2.5.0)
 
@@ -74,6 +89,8 @@ PLATFORMS
 
 DEPENDENCIES
   GameGenerator!
+  debug (~> 1.9)
+  grpc-tools (~> 1.64)
   minitest (~> 5.16)
   rake (~> 13.0)
   rubocop (~> 1.21)

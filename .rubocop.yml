@@ -25,6 +25,9 @@ Style/IfUnlessModifier:
 Style/IfWithBooleanLiteralBranches:
   Enabled: true
 
+Style/SpecialGlobalVars:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

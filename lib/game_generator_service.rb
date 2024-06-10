@@ -1,3 +1,4 @@
+require "tempfile"
 require_relative "proto/gamegenerator_services_pb"
 
 class GameGeneratorService < GameGenerator::Service
@@ -7,19 +8,32 @@ class GameGeneratorService < GameGenerator::Service
   end
 
   def generate_game(_request, _unused_call)
+    file = lambda do |path|
+      FileResponse.new(data: File.read(path, mode: "rb"))
+    end
+
     Dir.mktmpdir do |dir|
       puts "Generating game in #{dir}"
       build_command = ["/root/GenerateGame.sh"]
       build_command << dir
-      system(*build_command)
+      logfile = `#{build_command.join(" ")} 2>&1`
 
-      raise unless $?.success?
+      if $?.exitstatus != 0
+        tmpfile = Tempfile.new(%w[unity-build-error- .log])
+        tmpfile.write(logfile)
+        tmpfile.close
+
+        puts "Error building game, see #{tmpfile.path}"
+        raise "Error building game"
+      end
+
+      build_base = "#{dir}/Build/Build"
 
       GenerateGameResponse.new(
-        loader: File.read("#{dir}/build/Build.loader.js"),
-        data: File.read("#{dir}/build/Build.data.unityweb"),
-        framework: File.read("#{dir}/build/Build.framework.js.unityweb"),
-        code: File.read("#{dir}/build/Build.wasm.unityweb")
+        loader: file["#{build_base}/Build.loader.js"],
+        data: file["#{build_base}/Build.data.unityweb"],
+        framework: file["#{build_base}/Build.framework.js.unityweb"],
+        code: file["#{build_base}/Build.wasm.unityweb"]
       )
     end
   end
