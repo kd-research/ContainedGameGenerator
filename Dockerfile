@@ -16,6 +16,8 @@ COPY unity/Unity_lic.ulf /root/.local/share/unity3d/Unity/Unity_lic.ulf
 COPY unity/GenerateGame.sh /root/GenerateGame.sh
 COPY unity/DefaultSceneBuild.cs /root/SceneBuild.cs
 
+EXPOSE 9451
+
 WORKDIR /root/server
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["bash"]
