@@ -16,7 +16,11 @@ class GameGeneratorService < GameGenerator::Service
       puts "Generating game in #{dir}"
       build_command = ["/root/GenerateGame.sh"]
       build_command << dir
+      r0 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
       logfile = `#{build_command.join(" ")} 2>&1`
+      r1 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+      puts "#{dir}: Build time: #{r1 - r0} seconds"
 
       if $?.exitstatus != 0
         tmpfile = Tempfile.new(%w[unity-build-error- .log])
