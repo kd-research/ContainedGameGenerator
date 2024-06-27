@@ -5,11 +5,13 @@
 
 require "google/protobuf"
 
-descriptor_data = "\n\x19proto/gamegenerator.proto\"\x15\n\x13GenerateGameRequest\"\x91\x01\n\x14GenerateGameResponse\x12\x1d\n\x06loader\x18\x01 \x01(\x0b\x32\r.FileResponse\x12\x1b\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\r.FileResponse\x12 \n\tframework\x18\x03 \x01(\x0b\x32\r.FileResponse\x12\x1b\n\x04\x63ode\x18\x04 \x01(\x0b\x32\r.FileResponse\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x32L\n\rGameGenerator\x12;\n\x0cGenerateGame\x12\x14.GenerateGameRequest\x1a\x15.GenerateGameResponseb\x06proto3"
+descriptor_data = "\n\x19proto/gamegenerator.proto\x12\x08unitygen\"\x15\n\x13GenerateGameRequest\"\xb5\x01\n\x14GenerateGameResponse\x12&\n\x06loader\x18\x01 \x01(\x0b\x32\x16.unitygen.FileResponse\x12$\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x16.unitygen.FileResponse\x12)\n\tframework\x18\x03 \x01(\x0b\x32\x16.unitygen.FileResponse\x12$\n\x04\x63ode\x18\x04 \x01(\x0b\x32\x16.unitygen.FileResponse\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x32^\n\rGameGenerator\x12M\n\x0cGenerateGame\x12\x1d.unitygen.GenerateGameRequest\x1a\x1e.unitygen.GenerateGameResponseb\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
 pool.add_serialized_file(descriptor_data)
 
-GenerateGameRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("GenerateGameRequest").msgclass
-GenerateGameResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("GenerateGameResponse").msgclass
-FileResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("FileResponse").msgclass
+module Unitygen
+  GenerateGameRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("unitygen.GenerateGameRequest").msgclass
+  GenerateGameResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("unitygen.GenerateGameResponse").msgclass
+  FileResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("unitygen.FileResponse").msgclass
+end

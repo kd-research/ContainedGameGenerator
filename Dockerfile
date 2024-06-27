@@ -20,4 +20,4 @@ EXPOSE 9451
 
 WORKDIR /root/server
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
-CMD ["bash"]
+CMD ["./bin/serve"]

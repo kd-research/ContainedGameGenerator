@@ -1,7 +1,8 @@
 require "tempfile"
 require_relative "proto/gamegenerator_services_pb"
 
-class GameGeneratorService < GameGenerator::Service
+class GameGeneratorService < Unitygen::GameGenerator::Service
+  include Unitygen
   def initialize
     super
     puts "GameGeneratorService initialized"
